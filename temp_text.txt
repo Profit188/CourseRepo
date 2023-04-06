@@ -1,0 +1,48 @@
+<MudPaper Class="pt-4 pl-4 pr-4 mb-4" Elevation="5">
+    @if (files != null)
+    {
+        <div>
+            <MudGrid>
+                <MudItem xs="2">
+                    @*<MudInputLabel HtmlTag="label" Style="width=100%">Scope:</MudInputLabel>*@
+                    <label for="file-upload" style="font-size: 25px;">Scope:</label>
+                </MudItem>
+                <MudItem xs="6">
+                    @*@if (files != null && files.Count > 0)*@
+
+                        <MudTextField T="String" Label="Select excel file" Variant="Variant.Outlined"
+                              Margin="Margin.Dense" Value="@selectedFileName" />
+
+                </MudItem>
+                <MudItem xs="3">
+                    <MudFileUpload T="IBrowserFile" Accept=".xlsx" FilesChanged="UploadFiles">
+                        <ButtonTemplate>
+                            <MudButton HtmlTag="label" Variant="Variant.Filled" Color="Color.Primary"
+                                   StartIcon="@Icons.Material.Filled.CloudUpload" for="@context">
+                                Upload Files
+                            </MudButton>
+                        </ButtonTemplate>
+                    </MudFileUpload>
+                </MudItem>
+            </MudGrid>
+        </div>
+    }
+</MudPaper>
+
+@code {
+    IList<IBrowserFile> files = new List<IBrowserFile>();
+    private string selectedFileName;
+
+    private void UploadFiles(IBrowserFile file)
+    {
+        files.Add(file);
+        selectedFileName = file.Name;
+        StateHasChanged();
+    }
+}
+
+
+
+
+
+
